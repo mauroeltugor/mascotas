@@ -1,0 +1,64 @@
+import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+
+
+
+public class Index {
+
+	public static void main(String[] args) {
+	
+        HashMap<Integer, Procesos> mapaMascotas = new HashMap<>();
+
+        int rep;
+        int codigo = 1;
+
+        do {
+            Procesos mascota = new Procesos();
+            mascota.ingresar();
+            mapaMascotas.put(codigo, mascota);
+            codigo++;
+
+            rep = JOptionPane.showConfirmDialog(null, "Desea ingresar otra mascota?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+        } while (rep == JOptionPane.YES_OPTION);
+
+        int opcion;
+        
+        String mensaje;
+        do {
+                    
+            
+            mensaje="MENU DE BUSQUEDA\n";
+            mensaje+="1. Consultar mascota\n";
+            mensaje+="2. Consultar lista de mascotas\n";
+            mensaje+="3. salir\n";
+
+            opcion = Integer.parseInt(JOptionPane.showInputDialog(mensaje));
+            switch (opcion) {
+                case 1:
+                    int codigoMascota = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el codigo de la mascota"));
+                    Procesos mascota = mapaMascotas.get(codigoMascota);
+                    if (mascota != null) {
+                        System.out.println("Informacion de la mascota:");
+                        mascota.informacionMascotas();
+                       
+                    } else {
+                        System.out.println(mascota+" no ha sido encontrada.");
+                    }
+                    break;
+                case 2:
+                    System.out.println("Lista de mascotas:");
+                    for (Procesos m : mapaMascotas.values()) {
+                        m.informacionMascotas();
+                        
+                    }
+                    break;
+                case 3:
+                    System.out.println("chao");
+                    break;
+                default:
+                    System.out.println("opcion invalida");
+            }
+        } while (opcion != 3);
+    }
+}
